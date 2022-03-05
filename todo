@@ -1,0 +1,5 @@
+reformat data 
+add foreign key constraints to create_tables.sql
+add indexes to create_indexes.sql
+change paths in load_data.sql 
+add SQL code to profnetwork.java
