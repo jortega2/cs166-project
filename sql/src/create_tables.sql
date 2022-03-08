@@ -21,7 +21,7 @@ CREATE TABLE WORK_EXPR(
         startDate date,
         endDate date,
         PRIMARY KEY(userId,company,role,startDate),
-        FOREIGN KEY (userId) REFERENCES USR);
+        FOREIGN KEY (userId) REFERENCES USR(userId));
 
 CREATE TABLE EDUCATIONAL_DETAILS(
         userId varchar(30) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE EDUCATIONAL_DETAILS(
         startdate date,
         enddate date,
         PRIMARY KEY(userId,major,degree),
-        FOREIGN KEY (userId) REFERENCES USR);
+        FOREIGN KEY (userId) REFERENCES USR(userId));
 
 CREATE TABLE MESSAGE(
         msgId integer UNIQUE NOT NULL,
@@ -50,6 +50,6 @@ CREATE TABLE CONNECTION_USR(
         connectionId varchar(30) NOT NULL,
         status char(30) NOT NULL,
         PRIMARY KEY(userId,connectionId),
-        FOREIGN KEY (userId) REFERENCES USR,
+        FOREIGN KEY (userId) REFERENCES USR(userId),
         FOREIGN KEY (connectionId) REFERENCES USR(userId)
-        );
+);
