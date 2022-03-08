@@ -14,7 +14,7 @@ CREATE TABLE USR(
         Primary Key(userId));
 
 CREATE TABLE WORK_EXPR(
-        userId char(30) NOT NULL,
+        userId varchar(30) NOT NULL,
         company char(50) NOT NULL,
         role char(50) NOT NULL,
         location char(50),
@@ -24,7 +24,7 @@ CREATE TABLE WORK_EXPR(
         FOREIGN KEY (userId) REFERENCES USR);
 
 CREATE TABLE EDUCATIONAL_DETAILS(
-        userId char(30) NOT NULL,
+        userId varchar(30) NOT NULL,
         instituitionName char(50) NOT NULL,
         major char(50) NOT NULL,
         degree char(50) NOT NULL,
@@ -35,8 +35,8 @@ CREATE TABLE EDUCATIONAL_DETAILS(
 
 CREATE TABLE MESSAGE(
         msgId integer UNIQUE NOT NULL,
-        senderId char(30) NOT NULL,
-        receiverId char(30) NOT NULL,
+        senderId varchar(30) NOT NULL,
+        receiverId varchar(30) NOT NULL,
         contents char(500) NOT NULL,
         sendTime timestamp,
         deleteStatus integer,
@@ -46,9 +46,10 @@ CREATE TABLE MESSAGE(
         FOREIGN KEY (receiverId) REFERENCES USR(userId));
 
 CREATE TABLE CONNECTION_USR(
-        userId char(30) NOT NULL,
-        connectionId char(30) NOT NULL,
+        userId varchar(30) NOT NULL,
+        connectionId varchar(30) NOT NULL,
         status char(30) NOT NULL,
         PRIMARY KEY(userId,connectionId),
-        FOREIGN KEY (userId) REFERENCES USR
+        FOREIGN KEY (userId) REFERENCES USR,
+        FOREIGN KEY (connectionId) REFERENCES USR(userId)
         );
