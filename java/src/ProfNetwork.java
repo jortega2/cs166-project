@@ -385,14 +385,18 @@ public static void FriendList(ProfNetwork esql){
    try{
       boolean menu = true;
       int input = 0;
-      String friendlist_query = String.format("SELECT ROW_NUMBER() OVER() AS num_row, u.name FROM USR u " +
-      "(SELECT u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId " +
-      "UNION SELECT u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId) AS x ORDER BY u.userid", usr, usr);
+      // String friendlist_query = String.format("SELECT ROW_NUMBER() OVER() AS num_row, u.name FROM USR u " +
+      // "(SELECT u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId " +
+      // "UNION SELECT u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId) AS x ORDER BY u.userid", usr, usr);
 
-      String friendlist = String.format("SELECT c.userId FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-      " UNION SELECT c.connectionId from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId ORDER BY u.userId", usr, usr);
-      esql.executeQueryAndPrintResult(friendlist_query);
+      String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
+      "UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
+
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
+
+      for (int i = 0; i < friends.size(); i++){
+         System.out.println(i + ": " + friends.get(i).get(1));
+      }
       while(menu){
          System.out.println("Enter row_number of friend:");
          input = readChoice();
