@@ -390,7 +390,7 @@ public static void FriendList(ProfNetwork esql){
       // "UNION SELECT u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId) AS x ORDER BY u.userid", usr, usr);
 
       String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-      "UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
+      " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
 
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
