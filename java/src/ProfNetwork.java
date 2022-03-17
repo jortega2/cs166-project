@@ -353,7 +353,7 @@ public class ProfNetwork {
          esql.executeUpdate(query);
          System.out.println ("User successfully created!");
          List<String> new_user = new ArrayList<String>();
-         
+
          //add new user to list, set # of free connections to 5
          new_user.add(login);
          new_user.add("5");
@@ -527,7 +527,21 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
       return null;
    }
 }
-public static void addFriend(String id, ProfNetwork esql){
-
+public static void addFriend(String connection_id, ProfNetwork esql){
+      //check if new user
+      for (int i = 0; i < newUserList.size(); i++){
+         if (newUserList.get(i).get(0) == usr){
+            try{
+               String query = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Requst" );
+               esql.executeUpdate(query);
+            } catch(Exception e){
+               System.err.println (e.getMessage ());
+            }
+            int reqs_left = Integer.parseInt(newUserList.get(i).get(1));
+            reqs_left--;
+            newUserList.get(i).set(1, String.valueOf(reqs_left));
+            System.out.println(newUserList.get(i));
+         }
+      }
 }
 }//end ProfNetwork
