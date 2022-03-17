@@ -272,17 +272,17 @@ public class ProfNetwork {
                 System.out.println("MAIN MENU");
                 System.out.println("---------");
                 System.out.println("Welcome " + usr);
-                System.out.println("1. Goto Friend List");
+                System.out.println("1. Friend List");
                 System.out.println("2. Update Profile");
-                System.out.println("3. Write a new message");
-                System.out.println("4. Send Friend Request");
+                System.out.println("3. Messages");
+                System.out.println("4. Search people");
                 System.out.println(".........................");
                 System.out.println("9. Log out");
                 switch (readChoice()){
                    case 1: FriendList(esql); break;
                    case 2: UpdateProfile(esql); break;
-                   case 3: NewMessage(esql); break;
-                   case 4: SendRequest(esql); break;
+                   case 3: Message(esql); break;
+                   case 4: Search(esql); break;
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
@@ -382,7 +382,18 @@ public class ProfNetwork {
 
 // Rest of the functions definition go in here
 public static void FriendList(ProfNetwork esql){
-
+   try{
+      boolean menu = true;
+      String query = String.format("SELECT * FROM CONNECTION_USR WHERE userId = '%s' OR connectionId = '%s", usr, usr);
+      esql.executeQueryAndPrintResult(query);
+      List<List<String>> friends = esql.executeQueryAndReturnResult(query);
+      System.out.println(friends.get(0));
+      // while(menu){
+      //    System.out.println("1.")
+      // }
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
+   }
 }
 
 public static void UpdateProfile(ProfNetwork esql){
@@ -440,11 +451,11 @@ public static void UpdateProfile(ProfNetwork esql){
    }
 }
 
-public static void NewMessage(ProfNetwork esql){
+public static void Message(ProfNetwork esql){
 
 }
 
-public static void SendRequest(ProfNetwork esql){
+public static void Search(ProfNetwork esql){
 
 }
 
