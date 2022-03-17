@@ -384,7 +384,7 @@ public class ProfNetwork {
 public static void FriendList(ProfNetwork esql){
    try{
       boolean menu = true;
-      String query = String.format("SELECT * FROM CONNECTION_USR WHERE userId = '%s' OR connectionId = '%s", usr, usr);
+      String query = String.format("SELECT * FROM CONNECTION_USR WHERE userId = '%s' OR connectionId = '%s'", usr, usr);
       esql.executeQueryAndPrintResult(query);
       List<List<String>> friends = esql.executeQueryAndReturnResult(query);
       System.out.println(friends.get(0));
