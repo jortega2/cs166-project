@@ -530,9 +530,10 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
 public static void addFriend(String connection_id, ProfNetwork esql){
       //check if new user
       for (int i = 0; i < newUserList.size(); i++){
+         //new user found
          if (newUserList.get(i).get(0) == usr){
             try{
-               String query = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Requst" );
+               String query = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Request" );
                esql.executeUpdate(query);
             } catch(Exception e){
                System.err.println (e.getMessage ());
@@ -541,6 +542,10 @@ public static void addFriend(String connection_id, ProfNetwork esql){
             reqs_left--;
             newUserList.get(i).set(1, String.valueOf(reqs_left));
             System.out.println(newUserList.get(i));
+         } else {
+            //not a new user, connection rules apply
+            
+
          }
       }
 }
