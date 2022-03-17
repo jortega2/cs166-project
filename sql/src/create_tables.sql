@@ -45,7 +45,7 @@ CREATE TABLE MESSAGE(
         deleteStatus integer,
         status char(30) NOT NULL,
         PRIMARY KEY(msgId),
-        FOREIGN KEY (senderId) REFERENCES USR(userId),
+        FOREIGN KEY (senderId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE,
         FOREIGN KEY (receiverId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE
         );
 
@@ -54,6 +54,6 @@ CREATE TABLE CONNECTION_USR(
         connectionId varchar(30) NOT NULL,
         status char(30) NOT NULL,
         PRIMARY KEY(userId,connectionId),
-        FOREIGN KEY (userId) REFERENCES USR(userId),
+        FOREIGN KEY (userId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE,
         FOREIGN KEY (connectionId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
