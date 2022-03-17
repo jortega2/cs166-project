@@ -11,7 +11,8 @@ CREATE TABLE USR(
         email text NOT NULL,
         name char(50),
         dateOfBirth date,
-        Primary Key(userId));
+        Primary Key(userId)
+);
 
 CREATE TABLE WORK_EXPR(
         userId varchar(30) NOT NULL,
@@ -21,7 +22,8 @@ CREATE TABLE WORK_EXPR(
         startDate date,
         endDate date,
         PRIMARY KEY(userId,company,role,startDate),
-        FOREIGN KEY (userId) REFERENCES USR(userId));
+        FOREIGN KEY (userId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE EDUCATIONAL_DETAILS(
         userId varchar(30) NOT NULL,
@@ -31,7 +33,8 @@ CREATE TABLE EDUCATIONAL_DETAILS(
         startdate date,
         enddate date,
         PRIMARY KEY(userId,major,degree),
-        FOREIGN KEY (userId) REFERENCES USR(userId));
+        FOREIGN KEY (userId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 CREATE TABLE MESSAGE(
         msgId integer UNIQUE NOT NULL,
@@ -42,14 +45,15 @@ CREATE TABLE MESSAGE(
         deleteStatus integer,
         status char(30) NOT NULL,
         PRIMARY KEY(msgId),
-        FOREIGN KEY (senderId) REFERENCES USR(userId),
-        FOREIGN KEY (receiverId) REFERENCES USR(userId));
+        FOREIGN KEY (senderId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (receiverId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE
+        );
 
 CREATE TABLE CONNECTION_USR(
         userId varchar(30) NOT NULL,
         connectionId varchar(30) NOT NULL,
         status char(30) NOT NULL,
         PRIMARY KEY(userId,connectionId),
-        FOREIGN KEY (userId) REFERENCES USR(userId),
-        FOREIGN KEY (connectionId) REFERENCES USR(userId)
+        FOREIGN KEY (userId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE,
+        FOREIGN KEY (connectionId) REFERENCES USR(userId) ON DELETE CASCADE ON UPDATE CASCADE
 );
