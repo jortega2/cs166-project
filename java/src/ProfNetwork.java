@@ -503,7 +503,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
 
    try {
       String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-         " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
+         " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", id, id);
 
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
