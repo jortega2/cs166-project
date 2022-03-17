@@ -417,8 +417,10 @@ public static void FriendList(ProfNetwork esql){
          switch (readChoice()){
             case 1: 
                current_friends.clear();
+               String id = current_friends.get(friend_id).get(0);
+               System.out.println("here: " + id);
                current_friends = getFriendsList(current_friends.get(friend_id).get(0), esql);
-               esql.executeQueryAndPrintResult(query);
+               //esql.executeQueryAndPrintResult(query);
                break;
             case 2: 
                
