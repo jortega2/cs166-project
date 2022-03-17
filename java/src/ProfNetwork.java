@@ -395,11 +395,11 @@ public static void FriendList(ProfNetwork esql){
       
       while(menu){
          //display friends list
-         System.out.println("\n\n____________________________________\n")
+         System.out.println("\n\n____________________________________\n");
          for (int i = 0; i < current_friends.size(); i++){
             System.out.println(i + ": " + current_friends.get(i).get(1));
          }
-         System.out.println("\n\n____________________________________\n")
+         System.out.println("\n\n____________________________________\n");
 
          System.out.println("Enter row number of desired friend:");
          friend_id = readChoice();
