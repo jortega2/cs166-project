@@ -225,10 +225,13 @@ public class ProfNetwork {
     *
     * @param args the command line arguments this inclues the <mysql|pgsql> <login file>
     */
-    
+
     //global vars
     static String usr = "";
     static String pswd = "";
+    //class to keep track of new users and the # of friends they can add without level req.
+    public static List<List<String>> newUserList = new ArrayList<List<String>>();
+   
     public static void main (String[] args) {
       if (args.length != 3) {
          System.err.println (
@@ -347,14 +350,19 @@ public class ProfNetwork {
 
 	 //Creating empty contact\block lists for a user
 	 String query = String.format("INSERT INTO USR (userId, password, email) VALUES ('%s','%s','%s')", login, password, email);
-
          esql.executeUpdate(query);
          System.out.println ("User successfully created!");
+         List<String> new_user = new ArrayList<String>();
+         
+         //add new user to list, set # of free connections to 5
+         new_user.add(login);
+         new_user.add("5");
+         newUserList.add(new_user);
+
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
    }//end
-
    /*
     * Check log in credentials for an existing user
     * @return User login or null is the user does not exist
@@ -405,6 +413,7 @@ public static void FriendList(ProfNetwork esql){
          friend_id = readChoice();
          //display name and date of birth (profile)
          query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
+         System.out.println('\n');
          esql.executeQueryAndPrintResult(query);
          
          //menu
@@ -504,6 +513,7 @@ public static void Search(ProfNetwork esql){
 
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
+   
 
    try {
       String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
@@ -516,5 +526,8 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
       System.err.println (e.getMessage ());
       return null;
    }
+}
+public static void addFriend(String id, ProfNetwork esql){
+
 }
 }//end ProfNetwork
