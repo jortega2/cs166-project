@@ -384,8 +384,8 @@ public class ProfNetwork {
 public static void FriendList(ProfNetwork esql){
    try{
       boolean menu = true;
-      String friendlist_query = String.format("SELECT u.name, c.userId FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-      " UNION SELECT u.name, c.connectionId from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
+      String friendlist_query = String.format("SELECT u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
+      " UNION SELECT u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
       String friendlist = String.format("SELECT c.userId FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
       " UNION SELECT c.connectionId from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
       esql.executeQueryAndPrintResult(friendlist_query);
