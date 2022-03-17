@@ -401,7 +401,7 @@ public static void UpdateProfile(ProfNetwork esql){
             System.out.println("Enter new username: ");
             String new_username = in.readLine();
             query = String.format("UPDATE USR SET userId = '%s' WHERE userId = '%s' AND Password = '%s'",new_username,usr,pswd);
-            esql.executeUpdate(sql);
+            esql.executeUpdate(query);
          case 2: 
             System.out.println("Enter new password: ");
             String new_pw = in.readLine();
