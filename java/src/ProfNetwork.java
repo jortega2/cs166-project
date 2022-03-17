@@ -401,7 +401,7 @@ public static void FriendList(ProfNetwork esql){
          System.out.println("Enter row number of desired friend:");
          friend_id = readChoice();
          //display name and date of birth (profile)
-         query = String.format("SELECT name, dateofbirth FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
+         query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
          esql.executeQueryAndPrintResult(query);
          
          //menu
