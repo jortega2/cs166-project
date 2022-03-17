@@ -466,11 +466,16 @@ public static void Search(ProfNetwork esql){
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
 
-   String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-      " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
+   try {
+      String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
+         " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", usr, usr);
 
-   List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
+      List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
-   return friends;
+      return friends;
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
+      return null;
+   }
 }
 }//end ProfNetwork
