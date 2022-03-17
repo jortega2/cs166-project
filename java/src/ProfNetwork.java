@@ -418,7 +418,7 @@ public static void UpdateProfile(ProfNetwork esql){
             query = String.format("UPDATE USR SET name = '%s' WHERE userId = '%s' AND Password = '%s'",new_name,usr,pswd);
             esql.executeQuery(query);
          case 5:
-            System.out.println("Enter new username: ");
+            System.out.println("Enter new date: ");
             String new_dob = in.readLine();
             query = String.format("UPDATE USR SET dateofbirth = '%s' WHERE userId = '%s' AND Password = '%s'",new_dob,usr,pswd);
             esql.executeQuery(query);
