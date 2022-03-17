@@ -395,9 +395,12 @@ public static void FriendList(ProfNetwork esql){
       
       while(menu){
          //display friends list
+         System.out.println("\n\n____________________________________\n")
          for (int i = 0; i < current_friends.size(); i++){
             System.out.println(i + ": " + current_friends.get(i).get(1));
          }
+         System.out.println("\n\n____________________________________\n")
+
          System.out.println("Enter row number of desired friend:");
          friend_id = readChoice();
          //display name and date of birth (profile)
@@ -405,7 +408,7 @@ public static void FriendList(ProfNetwork esql){
          esql.executeQueryAndPrintResult(query);
          
          //menu
-         System.out.println("What would you like to do:");
+         System.out.println("\nWhat would you like to do:");
          System.out.println("1. View their friends");
          System.out.println("2. Send a message");
          System.out.println("3. Return to your friends");
