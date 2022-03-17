@@ -389,15 +389,15 @@ public static void UpdateProfile(ProfNetwork esql){
    try{
       boolean menu = true;
       String query;
-      System.out.println("What would you like to update?");
-      System.out.println("---------");
-      System.out.println("1. Username");
-      System.out.println("2. Password");
-      System.out.println("3. Email");
-      System.out.println("4. Name");
-      System.out.println("5. Date of birth");
-      System.out.println("9. < EXIT");
       while(menu){
+         System.out.println("What would you like to update?");
+         System.out.println("---------");
+         System.out.println("1. Username");
+         System.out.println("2. Password");
+         System.out.println("3. Email");
+         System.out.println("4. Name");
+         System.out.println("5. Date of birth");
+         System.out.println("9. < EXIT");
          switch (readChoice()){
             case 1: 
                System.out.println("Enter new username: ");
