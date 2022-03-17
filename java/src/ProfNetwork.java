@@ -384,18 +384,52 @@ public class ProfNetwork {
 public static void FriendList(ProfNetwork esql){
    try{
       boolean menu = true;
-      int input = 0;
-      List<List<String>> friends;
+      int friend_id = 0;
+      List<List<String>> user_friends, current_friends;
+      String query;
 
-      friends = getFriendsList(usr, esql);
+      user_friends = getFriendsList(usr, esql);
+      current_friends = user_friends;
       //display friends list
-      for (int i = 0; i < friends.size(); i++){
-         System.out.println(i + ": " + friends.get(i).get(1));
-      }
+
+      
       while(menu){
-         System.out.println("Enter row_number of friend:");
-         input = readChoice();
-         System.out.println(friends.get(input));
+         //display friends list
+         for (int i = 0; i < current_friends.size(); i++){
+            System.out.println(i + ": " + current_friends.get(i).get(1));
+         }
+         System.out.println("Enter row number of desired friend:");
+         friend_id = readChoice();
+         //display name and date of birth (profile)
+         query = String.format("SELECT name, dateofbirth FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
+         esql.executeQueryAndPrintResult(query);
+         
+         //menu
+         System.out.println("What would you like to do:");
+         System.out.println("1. View their friends");
+         System.out.println("2. Send a message");
+         System.out.println("3. Return to your friends");
+         //option to add friend if usr is not already added
+         if (!user_friends.contains(current_friends.get(friend_id))){
+            System.out.println("4. Add friend");
+         }
+         System.out.println("9. Exit");
+         switch (readChoice()){
+            case 1: 
+               current_friends = getFriendsList(current_friends.get(friend_id).get(0), esql);
+               esql.executeQueryAndPrintResult(query);
+               break;
+            case 2: 
+               
+               break;
+            case 3:
+               current_friends = user_friends;
+               break;
+            case 4:
+               break;
+            case 9: menu = false; break;
+            default : System.out.println("Unrecognized choice!"); break;
+         }//end switch
       }
    } catch(Exception e){
       System.err.println (e.getMessage ());
