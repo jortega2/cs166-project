@@ -404,26 +404,33 @@ public static void UpdateProfile(ProfNetwork esql){
                String new_username = in.readLine();
                query = String.format("UPDATE USR SET userId = '%s' WHERE userId = '%s' AND Password = '%s'",new_username,usr,pswd);
                esql.executeUpdate(query);
+               usr = new_username;
+               break;
             case 2: 
                System.out.println("Enter new password: ");
                String new_pw = in.readLine();
                query = String.format("UPDATE USR SET password = '%s' WHERE userId = '%s' AND Password = '%s'",new_pw,usr,pswd);
                esql.executeUpdate(query);
+               pswd = new_pw;
+               break;
             case 3:
                System.out.println("Enter new Email: ");
                String  new_email = in.readLine();
                query = String.format("UPDATE USR SET email = '%s' WHERE userId = '%s' AND Password = '%s'",new_email,usr,pswd);
                esql.executeUpdate(query);
+               break;
             case 4:
                System.out.println("Enter new name: ");
                String new_name = in.readLine();
                query = String.format("UPDATE USR SET name = '%s' WHERE userId = '%s' AND Password = '%s'",new_name,usr,pswd);
                esql.executeUpdate(query);
+               break;
             case 5:
                System.out.println("Enter new date: ");
                String new_dob = in.readLine();
                query = String.format("UPDATE USR SET dateofbirth = '%s' WHERE userId = '%s' AND Password = '%s'",new_dob,usr,pswd);
                esql.executeUpdate(query);
+               break;
             case 9: menu = false; break;
             default : System.out.println("Unrecognized choice!"); break;
          }//end switch
