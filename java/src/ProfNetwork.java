@@ -225,6 +225,7 @@ public class ProfNetwork {
     *
     * @param args the command line arguments this inclues the <mysql|pgsql> <login file>
     */
+<<<<<<< HEAD
 
     //global vars
     static String usr = "";
@@ -232,6 +233,12 @@ public class ProfNetwork {
     //class to keep track of new users and the # of friends they can add without level req.
     public static List<List<String>> newUserList = new ArrayList<List<String>>();
    
+=======
+    
+    //global vars
+    static String usr = "";
+    static String pswd = "";
+>>>>>>> main
     public static void main (String[] args) {
       if (args.length != 3) {
          System.err.println (
@@ -275,7 +282,11 @@ public class ProfNetwork {
                 System.out.println("MAIN MENU");
                 System.out.println("---------");
                 System.out.println("Welcome " + usr);
+<<<<<<< HEAD
                 System.out.println("1. Friend List");
+=======
+                System.out.println("1. Goto Friend List");
+>>>>>>> main
                 System.out.println("2. Update Profile");
                 System.out.println("3. Messages");
                 System.out.println("4. Search people");
@@ -350,6 +361,10 @@ public class ProfNetwork {
 
 	 //Creating empty contact\block lists for a user
 	 String query = String.format("INSERT INTO USR (userId, password, email) VALUES ('%s','%s','%s')", login, password, email);
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
          esql.executeUpdate(query);
          System.out.println ("User successfully created!");
          List<String> new_user = new ArrayList<String>();
