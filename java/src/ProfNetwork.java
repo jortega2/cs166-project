@@ -285,6 +285,7 @@ public class ProfNetwork {
                    case 2: UpdateProfile(esql); break;
                    case 3: viewMessage(esql); break;
                    case 4: Search(esql); break;
+                   case 5: sendMessage(esql, ""); break;
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
@@ -521,10 +522,8 @@ public static void viewMessage(ProfNetwork esql){
       while(choice != 99){
          //update messages
          List<List<String>> messages = esql.executeQueryAndReturnResult(query);
-         // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
-         //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
-        
-         //menu
+         
+         //display inboxes
          for (int i = 0; i < messages.size(); i++){
             System.out.println(i + ": " + messages.get(i).get(0));
          }
@@ -536,8 +535,10 @@ public static void viewMessage(ProfNetwork esql){
          if (choice == 99){
             break;
          }
+         //display message content
          System.out.println(messages.get(choice).get(2).trim() + "\ntime " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
-
+         
+         //option to delete
          System.out.println("Delete message?\n1.Yes\nother:No");
          int ans = Integer.parseInt(in.readLine());
 
@@ -553,6 +554,11 @@ public static void viewMessage(ProfNetwork esql){
    }
 }
 
+public static void sendMessage(ProfNetwork esql, String id){
+   if (id.equals("")){
+      System.out.println("True");
+   }
+}
 public static void Search(ProfNetwork esql){
 
 }
