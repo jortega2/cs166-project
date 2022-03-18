@@ -562,7 +562,7 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
             //check if the user they want to add is in connectinons
 
             for (int j = 0; j < connections.size(); j++){
-               String id = connections.get(j).get(0);
+               String id = connections.get(j).get(0).toString();
                id = id.trim();
                connection_id = connection_id.trim();
                if (id == connection_id){
