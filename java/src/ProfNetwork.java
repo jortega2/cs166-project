@@ -275,14 +275,15 @@ public class ProfNetwork {
                 System.out.println("Welcome " + usr);
                 System.out.println("1. Friend List");
                 System.out.println("2. Update Profile");
-                System.out.println("3. Messages");
+                System.out.println("3. View Messages");
                 System.out.println("4. Search people");
+                System.out.println("5. Send a message");
                 System.out.println(".........................");
                 System.out.println("9. Log out");
                 switch (readChoice()){
                    case 1: FriendList(esql); break;
                    case 2: UpdateProfile(esql); break;
-                   case 3: Message(esql); break;
+                   case 3: viewMessage(esql); break;
                    case 4: Search(esql); break;
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
@@ -506,8 +507,42 @@ public static void UpdateProfile(ProfNetwork esql){
    }
 }
 
-public static void Message(ProfNetwork esql){
+public static void viewMessage(ProfNetwork esql){
+   try{
+      boolean menu = true;
 
+      String query;
+      
+      while(menu){
+         // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
+         //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
+         query = String.format("SELECT receiverId FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
+                + " UNION SELECT senderId FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
+         List<List<String>> messages = esql.executeQueryAndReturnResult(query);
+         
+         //menu
+         for (int i = 0; i < messages.size(); i++){
+            System.out.println(i + ": " + messages.get(i).get(0));
+         }
+      //    System.out.println("\nWhat would you like to do:");
+      //    System.out.println("1. View Messages");
+      //    System.out.println("2. Send a message");
+      //    System.out.println("9. Exit");
+      //    switch (readChoice()){
+      //       case 1: 
+      //          for (int i = 0; i < messages.size(); i++){
+      //             System.out.println(i + ": " + messages.get(i).get(0));
+      //          }
+      //          break;
+      //       case 2:  
+      //          break;
+      //       case 9: menu = false; break;
+      //       default : System.out.println("Unrecognized choice!"); break;
+      //    }//end switch
+      // }
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
+   }
 }
 
 public static void Search(ProfNetwork esql){
@@ -569,7 +604,7 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
                //System.out.println(equal);
                if (equal){
                   try{
-                     String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
+                     String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Request" );
                      esql.executeUpdate(query_1);
                   }catch(Exception e){
                      System.err.println (e.getMessage ());
