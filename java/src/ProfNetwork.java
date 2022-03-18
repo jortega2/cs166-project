@@ -413,7 +413,7 @@ public static void FriendList(ProfNetwork esql){
          query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
          System.out.println('\n');
          esql.executeQueryAndPrintResult(query);
-         
+
          //get id of friend
          String id = current_friends.get(friend_id).get(0);
          
@@ -558,11 +558,11 @@ public static void addFriend(String connection_id, ProfNetwork esql){
 
                List<List<String>> connections = esql.executeQueryAndReturnResult(query);
 
-               System.out.println("\n\n____________________________________\n");
+               System.out.println("\n\n____________________________________+\n");
                for (int j = 0; j < connections.size(); i++){
                   System.out.println(j + ": " + connections.get(i));
                }
-               System.out.println("\n\n____________________________________\n");
+               System.out.println("\n\n____________________________________+\n");
 
             }catch(Exception e){
                System.err.println (e.getMessage ());
