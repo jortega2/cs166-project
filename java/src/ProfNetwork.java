@@ -564,7 +564,7 @@ public static void sendMessage(ProfNetwork esql, String id){
       System.out.println("Enter the message content:");
       String input = in.readLine();
 
-      String query = String.format("INSERT INTO MESSAGE (senderId, connectionId, contents, deleteStatus, status) VALUES ('%s','%s','%s','%d','s' )", usr, id, input, 0, "Delivered");
+      String query = String.format("INSERT INTO MESSAGE (senderId, receiverId, contents, deleteStatus, status) VALUES ('%s','%s','%s','%d','s' )", usr, id, input, 0, "Delivered");
       esql.executeUpdate(query);
 
    } catch(Exception e){
