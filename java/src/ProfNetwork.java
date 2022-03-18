@@ -533,15 +533,15 @@ public static void viewMessage(ProfNetwork esql){
          if (choice == 99){
             break;
          }
-         System.out.println(messages.get(choice).get(2) + "\ntime " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
+         System.out.println(messages.get(choice).get(2) + "time " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
 
          System.out.println("Delete message?\n1.Yes\nother:No");
          int ans = Integer.parseInt(in.readLine());
 
          if (ans == 1){
-            query = String.format("UPDATE MESSAGES SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(1), messages.get(choice).get(6));
+            query = String.format("UPDATE MESSAGE SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(1), messages.get(choice).get(6));
             esql.executeUpdate(query);
-            query = String.format("UPDATE MESSAGES SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(6), messages.get(choice).get(1));
+            query = String.format("UPDATE MESSAGE SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(6), messages.get(choice).get(1));
             esql.executeUpdate(query);
          }
       }
