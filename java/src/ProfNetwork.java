@@ -563,8 +563,8 @@ public static int addFriend(String connection_id, ProfNetwork esql){
             List<List<String>> connections = esql.executeQueryAndReturnResult(query);
 
             System.out.println("\n\n____________________________________+\n");
-            for (int j = 0; j < connections.size(); i++){
-               System.out.println(j + ": " + connections.get(i));
+            for (int j = 0; j < connections.size(); j++){
+               System.out.println(j + ": " + connections.get(j));
             }
             System.out.println("\n\n____________________________________+\n");
 
