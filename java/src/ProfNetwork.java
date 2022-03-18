@@ -515,10 +515,12 @@ public static void viewMessage(ProfNetwork esql){
 
       query = String.format("SELECT name, receiverId, contents, sendTime, status, deleteStatus, senderId FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
                 + " UNION SELECT name, senderId, contents, sendtime, status, deleteStatus, receiverId FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
-      List<List<String>> messages = esql.executeQueryAndReturnResult(query);
+      
 
       
       while(choice != 99){
+         //update messages
+         List<List<String>> messages = esql.executeQueryAndReturnResult(query);
          // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
          //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
         
