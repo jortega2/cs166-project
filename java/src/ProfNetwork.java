@@ -440,6 +440,7 @@ public static void FriendList(ProfNetwork esql){
                break;
             case 4:
                int result = addFriend(id, esql, user_friends);
+               System.out.println(result);
                break;
             case 9: menu = false; break;
             default : System.out.println("Unrecognized choice!"); break;
