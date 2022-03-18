@@ -563,18 +563,23 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
 
             for (int j = 0; j < connections.size(); j++){
                String id = connections.get(j).get(0);
-               System.out.println(id + ".");
-               System.out.println(connection_id + ".");
+               id = id.trim();
+               connection_id = connection_id.trim();
                if (id == connection_id){
-                  try{
-                     String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
-                     esql.executeUpdate(query_1);
-                     break;
-                  }catch(Exception e){
-                     System.err.println (e.getMessage ());
-                  }
-                  return 1;
+                  System.out.println("true");
+               } else {
+                  System.out.println("false");
                }
+               // if (id == connection_id){
+               //    try{
+               //       String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
+               //       esql.executeUpdate(query_1);
+               //       break;
+               //    }catch(Exception e){
+               //       System.err.println (e.getMessage ());
+               //    }
+               //    return 1;
+               // }
             }
             System.out.println("User does not have required connection level.");
 
