@@ -524,22 +524,22 @@ public static void viewMessage(ProfNetwork esql){
          for (int i = 0; i < messages.size(); i++){
             System.out.println(i + ": " + messages.get(i).get(0));
          }
-      //    System.out.println("\nWhat would you like to do:");
-      //    System.out.println("1. View Messages");
-      //    System.out.println("2. Send a message");
-      //    System.out.println("9. Exit");
-      //    switch (readChoice()){
-      //       case 1: 
-      //          for (int i = 0; i < messages.size(); i++){
-      //             System.out.println(i + ": " + messages.get(i).get(0));
-      //          }
-      //          break;
-      //       case 2:  
-      //          break;
-      //       case 9: menu = false; break;
-      //       default : System.out.println("Unrecognized choice!"); break;
-      //    }//end switch
-      // }
+         // System.out.println("\nWhat would you like to do:");
+         // System.out.println("1. View Messages");
+         // System.out.println("2. Send a message");
+         // System.out.println("9. Exit");
+         // switch (readChoice()){
+         //    case 1: 
+         //       for (int i = 0; i < messages.size(); i++){
+         //          System.out.println(i + ": " + messages.get(i).get(0));
+         //       }
+         //       break;
+         //    case 2:  
+         //       break;
+         //    case 9: menu = false; break;
+         //    default : System.out.println("Unrecognized choice!"); break;
+         // }//end switch
+      }
    } catch(Exception e){
       System.err.println (e.getMessage ());
    }
