@@ -229,6 +229,10 @@ public class ProfNetwork {
     //global vars
     static String usr = "";
     static String pswd = "";
+<<<<<<< HEAD
+=======
+    public static List<List<String>> newUserList = new ArrayList<List<String>>();
+>>>>>>> dev
     public static void main (String[] args) {
       if (args.length != 3) {
          System.err.println (
@@ -272,17 +276,21 @@ public class ProfNetwork {
                 System.out.println("MAIN MENU");
                 System.out.println("---------");
                 System.out.println("Welcome " + usr);
+<<<<<<< HEAD
                 System.out.println("1. Goto Friend List");
+=======
+                System.out.println("1. Friend List");
+>>>>>>> dev
                 System.out.println("2. Update Profile");
-                System.out.println("3. Write a new message");
-                System.out.println("4. Send Friend Request");
+                System.out.println("3. Messages");
+                System.out.println("4. Search people");
                 System.out.println(".........................");
                 System.out.println("9. Log out");
                 switch (readChoice()){
                    case 1: FriendList(esql); break;
                    case 2: UpdateProfile(esql); break;
-                   case 3: NewMessage(esql); break;
-                   case 4: SendRequest(esql); break;
+                   case 3: Message(esql); break;
+                   case 4: Search(esql); break;
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
@@ -347,14 +355,23 @@ public class ProfNetwork {
 
 	 //Creating empty contact\block lists for a user
 	 String query = String.format("INSERT INTO USR (userId, password, email) VALUES ('%s','%s','%s')", login, password, email);
+<<<<<<< HEAD
 
+=======
+>>>>>>> dev
          esql.executeUpdate(query);
          System.out.println ("User successfully created!");
+         List<String> new_user = new ArrayList<String>();
+
+         //add new user to list, set # of free connections to 5
+         new_user.add(login);
+         new_user.add("5");
+         newUserList.add(new_user);
+
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
    }//end
-
    /*
     * Check log in credentials for an existing user
     * @return User login or null is the user does not exist
@@ -382,7 +399,64 @@ public class ProfNetwork {
 
 // Rest of the functions definition go in here
 public static void FriendList(ProfNetwork esql){
+   try{
+      boolean menu = true;
+      int friend_id = 0;
+      List<List<String>> user_friends, current_friends;
+      String query;
 
+      user_friends = getFriendsList(usr, esql);
+      current_friends = user_friends;
+      //display friends list
+
+      
+      while(menu){
+         //display friends list
+         System.out.println("\n\n____________________________________\n");
+         for (int i = 0; i < current_friends.size(); i++){
+            System.out.println(i + ": " + current_friends.get(i).get(1));
+         }
+         System.out.println("\n\n____________________________________\n");
+
+         System.out.println("Enter row number of desired friend:");
+         friend_id = readChoice();
+         //display name and date of birth (profile)
+         query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
+         System.out.println('\n');
+         esql.executeQueryAndPrintResult(query);
+         
+         //menu
+         System.out.println("\nWhat would you like to do:");
+         System.out.println("1. View their friends");
+         System.out.println("2. Send a message");
+         System.out.println("3. Return to your friends");
+         //option to add friend if usr is not already added
+         if (!user_friends.contains(current_friends.get(friend_id))){
+            System.out.println("4. Add friend");
+         }
+         System.out.println("9. Exit");
+         switch (readChoice()){
+            case 1: 
+               //get id of selected friend
+               String id = current_friends.get(friend_id).get(0);
+               //get their friends list
+               current_friends = getFriendsList(id, esql);
+               break;
+            case 2: 
+               
+               break;
+            case 3:
+               current_friends = user_friends;
+               break;
+            case 4:
+               break;
+            case 9: menu = false; break;
+            default : System.out.println("Unrecognized choice!"); break;
+         }//end switch
+      }
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
+   }
 }
 
 public static void UpdateProfile(ProfNetwork esql){
@@ -440,12 +514,48 @@ public static void UpdateProfile(ProfNetwork esql){
    }
 }
 
-public static void NewMessage(ProfNetwork esql){
+public static void Message(ProfNetwork esql){
 
 }
 
-public static void SendRequest(ProfNetwork esql){
+public static void Search(ProfNetwork esql){
 
 }
+public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
+   
 
+   try {
+      String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
+         " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", id, id);
+
+      List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
+
+      return friends;
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
+      return null;
+   }
+}
+public static void addFriend(String connection_id, ProfNetwork esql){
+      //check if new user
+      for (int i = 0; i < newUserList.size(); i++){
+         //new user found
+         if (newUserList.get(i).get(0) == usr){
+            try{
+               String query = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Request" );
+               esql.executeUpdate(query);
+            } catch(Exception e){
+               System.err.println (e.getMessage ());
+            }
+            int reqs_left = Integer.parseInt(newUserList.get(i).get(1));
+            reqs_left--;
+            newUserList.get(i).set(1, String.valueOf(reqs_left));
+            System.out.println(newUserList.get(i));
+         } else {
+            //not a new user, connection rules apply
+            
+
+         }
+      }
+}
 }//end ProfNetwork
