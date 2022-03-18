@@ -229,10 +229,7 @@ public class ProfNetwork {
     //global vars
     static String usr = "";
     static String pswd = "";
-<<<<<<< HEAD
-=======
     static int message_ids = 27812;
->>>>>>> dev
     public static List<List<String>> newUserList = new ArrayList<List<String>>();
     public static void main (String[] args) {
       if (args.length != 3) {
@@ -279,27 +276,17 @@ public class ProfNetwork {
                 System.out.println("Welcome " + usr);
                 System.out.println("1. Friend List");
                 System.out.println("2. Update Profile");
-<<<<<<< HEAD
-                System.out.println("3. Messages");
-                System.out.println("4. Search people");
-=======
                 System.out.println("3. View Messages");
                 System.out.println("4. Search people");
                 System.out.println("5. Send a message");
->>>>>>> dev
                 System.out.println(".........................");
                 System.out.println("9. Log out");
                 switch (readChoice()){
                    case 1: FriendList(esql); break;
                    case 2: UpdateProfile(esql); break;
-<<<<<<< HEAD
-                   case 3: Message(esql); break;
-                   case 4: Search(esql); break;
-=======
                    case 3: viewMessage(esql); break;
                    case 4: Search(esql); break;
                    case 5: sendMessage(esql, ""); break;
->>>>>>> dev
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
@@ -428,12 +415,9 @@ public static void FriendList(ProfNetwork esql){
          query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
          System.out.println('\n');
          esql.executeQueryAndPrintResult(query);
-<<<<<<< HEAD
-=======
 
          //get id of friend
          String id = current_friends.get(friend_id).get(0);
->>>>>>> dev
          
          //menu
          System.out.println("\nWhat would you like to do:");
@@ -447,30 +431,18 @@ public static void FriendList(ProfNetwork esql){
          System.out.println("9. Exit");
          switch (readChoice()){
             case 1: 
-<<<<<<< HEAD
-               //get id of selected friend
-               String id = current_friends.get(friend_id).get(0);
-=======
->>>>>>> dev
                //get their friends list
                current_friends = getFriendsList(id, esql);
                break;
             case 2: 
-<<<<<<< HEAD
-               
-=======
                sendMessage(esql, id);
->>>>>>> dev
                break;
             case 3:
                current_friends = user_friends;
                break;
             case 4:
-<<<<<<< HEAD
-=======
                int result = addFriend(id, esql, user_friends);
                user_friends = getFriendsList(usr, esql);
->>>>>>> dev
                break;
             case 9: menu = false; break;
             default : System.out.println("Unrecognized choice!"); break;
@@ -536,9 +508,6 @@ public static void UpdateProfile(ProfNetwork esql){
    }
 }
 
-<<<<<<< HEAD
-public static void Message(ProfNetwork esql){
-=======
 public static void viewMessage(ProfNetwork esql){
    try{
      
@@ -584,7 +553,6 @@ public static void viewMessage(ProfNetwork esql){
       System.err.println (e.getMessage ());
    }
 }
->>>>>>> dev
 
 public static void sendMessage(ProfNetwork esql, String id){
    try{
@@ -609,18 +577,10 @@ public static void Search(ProfNetwork esql){
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    
-<<<<<<< HEAD
-
-   try {
-      String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-         " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", id, id);
-
-=======
 
    try {
       String friendlist = String.format(" SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId AND c.status = '%s'", id, "Accept");
 
->>>>>>> dev
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
       return friends;
@@ -629,11 +589,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
       return null;
    }
 }
-<<<<<<< HEAD
-public static void addFriend(String connection_id, ProfNetwork esql){
-=======
 public static int addFriend(String connection_id, ProfNetwork esql, List<List<String>> user_friends){
->>>>>>> dev
       //check if new user
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
@@ -646,17 +602,6 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
             }
             int reqs_left = Integer.parseInt(newUserList.get(i).get(1));
             reqs_left--;
-<<<<<<< HEAD
-            newUserList.get(i).set(1, String.valueOf(reqs_left));
-            System.out.println(newUserList.get(i));
-            //
-         } else {
-            //not a new user, connection rules apply
-            
-
-         }
-      }
-=======
             if (reqs_left == 0){
                newUserList.remove(i);
             } else {
@@ -706,6 +651,5 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
             System.err.println (e.getMessage ());
          }
       return 0;
->>>>>>> dev
 }
-}//end ProfNetwork
+}//end ProfNetwork.
