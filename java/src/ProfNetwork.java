@@ -562,6 +562,7 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
             //check if the user they want to add is in connectinons
 
             for (int j = 0; j < connections.size(); j++){
+               System.out.println(connections.get(j).get(0), connection_id);
                if (connections.get(j).get(0) == connection_id){
                   try{
                      String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
