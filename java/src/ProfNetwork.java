@@ -439,7 +439,9 @@ public static void FriendList(ProfNetwork esql){
                current_friends = user_friends;
                break;
             case 4:
-               addFriend(id, esql);
+               int result = addFriend(id, esql);
+               System.out.println(result);
+               System.out.println("```");
                break;
             case 9: menu = false; break;
             default : System.out.println("Unrecognized choice!"); break;
@@ -527,8 +529,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
       return null;
    }
 }
-public static void addFriend(String connection_id, ProfNetwork esql){
-      System.out.println("here\n\n");
+public static int addFriend(String connection_id, ProfNetwork esql){
       //check if new user
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
@@ -547,29 +548,29 @@ public static void addFriend(String connection_id, ProfNetwork esql){
                newUserList.get(i).set(1, String.valueOf(reqs_left));
                System.out.println(newUserList.get(i));
             }
-         } else {
-            try{
-            //not a new user, connection rules apply
-               String query = String.format("SELECT DISTINCT C1.connectionId FROM CONNECTION_USR C1 WHERE C1.userId = '%s'"
-               + " UNION SELECT DISTINCT C2.connectionId FROM CONNECTION_USR C2 WHERE C2.userId = C1.connnectionId"
-               + " UNION SELECT DISTINCT C3 connectionId from CONNECTION_USR C3 WHERE C3.userId = C2.connectionId"
-               + " UNION SELECT DISTINCT C1.userId FROM CONNECTION_USR C1 WHERE C1.connectionId = '%s'"
-               + " UNION SELECT DISTINCT C2.userId FROM CONNECTION_USR C2 WHERE C2.connectionId = C1.userId"
-               + " UNION SELECT DISTINCT C3.userId from CONNECTION_USR C3 WHERE C3.connectionId = C2.userId",usr,usr);
-
-               List<List<String>> connections = esql.executeQueryAndReturnResult(query);
-
-               System.out.println("\n\n____________________________________+\n");
-               for (int j = 0; j < connections.size(); i++){
-                  System.out.println(j + ": " + connections.get(i));
-               }
-               System.out.println("\n\n____________________________________+\n");
-
-            }catch(Exception e){
-               System.err.println (e.getMessage ());
-            }
-
+            return 1;
          }
       }
+      try{
+         //not a new user, connection rules apply
+            String query = String.format("SELECT DISTINCT C1.connectionId FROM CONNECTION_USR C1 WHERE C1.userId = '%s'"
+            + " UNION SELECT DISTINCT C2.connectionId FROM CONNECTION_USR C2 WHERE C2.userId = C1.connnectionId"
+            + " UNION SELECT DISTINCT C3 connectionId from CONNECTION_USR C3 WHERE C3.userId = C2.connectionId"
+            + " UNION SELECT DISTINCT C1.userId FROM CONNECTION_USR C1 WHERE C1.connectionId = '%s'"
+            + " UNION SELECT DISTINCT C2.userId FROM CONNECTION_USR C2 WHERE C2.connectionId = C1.userId"
+            + " UNION SELECT DISTINCT C3.userId from CONNECTION_USR C3 WHERE C3.connectionId = C2.userId",usr,usr);
+
+            List<List<String>> connections = esql.executeQueryAndReturnResult(query);
+
+            System.out.println("\n\n____________________________________+\n");
+            for (int j = 0; j < connections.size(); i++){
+               System.out.println(j + ": " + connections.get(i));
+            }
+            System.out.println("\n\n____________________________________+\n");
+
+         }catch(Exception e){
+            System.err.println (e.getMessage ());
+         }
+      return 0;
 }
 }//end ProfNetwork
