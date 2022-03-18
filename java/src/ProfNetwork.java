@@ -566,6 +566,7 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
                id = id.trim();
                connection_id = connection_id.trim();
                boolean equal = id.equals(connection_id);
+               System.out.println(equal);
                if (equal){
                   try{
                      String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
