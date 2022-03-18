@@ -509,23 +509,24 @@ public static void UpdateProfile(ProfNetwork esql){
 
 public static void viewMessage(ProfNetwork esql){
    try{
-      boolean menu = true;
+     
       int choice = 0;
-      String query;
+      String query, querys;
 
       query = String.format("SELECT name, receiverId, contents, sendTime, status, deleteStatus, senderId FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
                 + " UNION SELECT name, senderId, contents, sendtime, status, deleteStatus, receiverId FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
       List<List<String>> messages = esql.executeQueryAndReturnResult(query);
 
-       //menu
-      for (int i = 0; i < messages.size(); i++){
-         System.out.println(i + ": " + messages.get(i).get(0));
-      }
       
       while(choice != 99){
          // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
          //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
         
+         //menu
+         for (int i = 0; i < messages.size(); i++){
+            System.out.println(i + ": " + messages.get(i).get(0));
+         }
+
          System.out.println("99: Exit");
 
          System.out.println("\nSelect inbox: ");
@@ -533,16 +534,16 @@ public static void viewMessage(ProfNetwork esql){
          if (choice == 99){
             break;
          }
-         System.out.println(messages.get(choice).get(2) + "time " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
+         System.out.println(messages.get(choice).get(2).trim() + "\ntime " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
 
          System.out.println("Delete message?\n1.Yes\nother:No");
          int ans = Integer.parseInt(in.readLine());
 
          if (ans == 1){
-            query = String.format("UPDATE MESSAGE SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(1), messages.get(choice).get(6));
-            esql.executeUpdate(query);
-            query = String.format("UPDATE MESSAGE SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(6), messages.get(choice).get(1));
-            esql.executeUpdate(query);
+            querys = String.format("UPDATE MESSAGE SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(1), messages.get(choice).get(6));
+            esql.executeUpdate(querys);
+            querys = String.format("UPDATE MESSAGE SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(6), messages.get(choice).get(1));
+            esql.executeUpdate(querys);
          }
       }
    } catch(Exception e){
