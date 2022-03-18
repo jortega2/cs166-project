@@ -516,8 +516,8 @@ public static void viewMessage(ProfNetwork esql){
       while(menu){
          // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
          //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
-         query = String.format("SELECT receiverId FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
-                + " UNION SELECT senderId FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
+         query = String.format("SELECT receiverId FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
+                + " UNION SELECT senderId FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
          List<List<String>> messages = esql.executeQueryAndReturnResult(query);
          
          //menu
