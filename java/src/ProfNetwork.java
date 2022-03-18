@@ -435,7 +435,7 @@ public static void FriendList(ProfNetwork esql){
                current_friends = getFriendsList(id, esql);
                break;
             case 2: 
-               
+               sendMessage(esql, id);
                break;
             case 3:
                current_friends = user_friends;
@@ -557,6 +557,8 @@ public static void viewMessage(ProfNetwork esql){
 public static void sendMessage(ProfNetwork esql, String id){
    if (id.equals("")){
       System.out.println("True");
+   } else {
+      System.out.println(id);
    }
 }
 public static void Search(ProfNetwork esql){
