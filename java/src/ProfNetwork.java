@@ -565,7 +565,7 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
             List<List<String>> connections = user_friends;
 
             for (int i = 0; i < user_friends.size(); i++){
-               System.out.println(user_friends.get(i).get(0));
+               System.out.println(user_friends.get(i));
                connections.addAll(getFriendsList(user_friends.get(i).get(0), esql));
             }
 
