@@ -229,6 +229,7 @@ public class ProfNetwork {
     //global vars
     static String usr = "";
     static String pswd = "";
+    static int message_ids = 27812;
     public static List<List<String>> newUserList = new ArrayList<List<String>>();
     public static void main (String[] args) {
       if (args.length != 3) {
@@ -387,7 +388,6 @@ public class ProfNetwork {
          return null;
       }
    }//end
-
 // Rest of the functions definition go in here
 public static void FriendList(ProfNetwork esql){
    try{
@@ -555,12 +555,23 @@ public static void viewMessage(ProfNetwork esql){
 }
 
 public static void sendMessage(ProfNetwork esql, String id){
-   if (id.equals("")){
-      System.out.println("True");
-   } else {
-      System.out.println(id);
+   try{
+      
+      if (id.equals("")){
+         System.out.println("Enter name or userId of user you'd like to send a message to:");
+         id = in.readLine().trim();
+      } 
+      System.out.println("Enter the message content:");
+      String input = in.readLine();
+
+      String query = String.format("INSERT INTO MESSAGE (senderId, connectionId, contents, deleteStatus, status) VALUES ('%s','%s','%s','%d','s' )", usr, id, input, 0, "Delivered");
+      esql.executeUpdate(query);
+
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
    }
 }
+
 public static void Search(ProfNetwork esql){
 
 }
