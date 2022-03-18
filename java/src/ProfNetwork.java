@@ -555,10 +555,10 @@ public static int addFriend(String connection_id, ProfNetwork esql){
          //not a new user, connection rules apply
             String query = String.format("SELECT DISTINCT C1.connectionId FROM CONNECTION_USR C1 WHERE C1.userId = '%s'"
             + " UNION SELECT DISTINCT C2.connectionId FROM CONNECTION_USR C2 WHERE C2.userId = C1.connnectionId"
-            + " UNION SELECT DISTINCT C3 connectionId from CONNECTION_USR C3 WHERE C3.userId = C2.connectionId"
+            + " UNION SELECT DISTINCT C3 connectionId FROM CONNECTION_USR C3 WHERE C3.userId = C2.connectionId"
             + " UNION SELECT DISTINCT C1.userId FROM CONNECTION_USR C1 WHERE C1.connectionId = '%s'"
             + " UNION SELECT DISTINCT C2.userId FROM CONNECTION_USR C2 WHERE C2.connectionId = C1.userId"
-            + " UNION SELECT DISTINCT C3.userId from CONNECTION_USR C3 WHERE C3.connectionId = C2.userId",usr,usr);
+            + " UNION SELECT DISTINCT C3.userId FROM CONNECTION_USR C3 WHERE C3.connectionId = C2.userId",usr,usr);
 
             List<List<String>> connections = esql.executeQueryAndReturnResult(query);
 
