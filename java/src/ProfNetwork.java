@@ -504,11 +504,24 @@ public static void UpdateProfile(ProfNetwork esql){
 }
 
 public static void Message(ProfNetwork esql){
-
+      
 }
 
+//search people by name
 public static void Search(ProfNetwork esql){
 
+      try{
+         System.out.println("Enter search name: ");
+         String searchName = in.readLine();
+	 String peopleList = String.format("SELECT u.userId,u.name FROM USR u WHERE u.userId = '%s'",searchName);
+      
+         List<String> matchesList = esql.executeQueryAndReturnResult(peopleList);
+         for (int i = 0; i < matchesList.size(); i++){
+            System.out.println(i + ": " + current_friends.get(0)+current_friends.get(1);
+         }
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+      }
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    
