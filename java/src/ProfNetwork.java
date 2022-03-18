@@ -554,7 +554,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
       try{
          //not a new user, connection rules apply
             String query = String.format( "SELECT DISTINCT C1.connectionId FROM CONNECTION_USR C1 WHERE C1.userId = '%s'"
-            + " AND (SELECT DISTINCT C2.connectionId FROM CONNECTION_USR C2 WHERE C2.userId = C1.connnectionId)",usr);
+            + " UNION ALL (SELECT DISTINCT C2.connectionId FROM CONNECTION_USR C2 WHERE C2.userId = C1.connnectionId)",usr);
 
             // + " UNION SELECT DISTINCT C3 connectionId FROM CONNECTION_USR C3 WHERE C3.userId = C2.connectionId"
             // + " UNION SELECT DISTINCT C1.userId FROM CONNECTION_USR C1 WHERE C1.connectionId = '%s'"
