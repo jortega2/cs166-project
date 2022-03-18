@@ -414,6 +414,9 @@ public static void FriendList(ProfNetwork esql){
          System.out.println('\n');
          esql.executeQueryAndPrintResult(query);
          
+         //get id of friend
+         String id = current_friends.get(friend_id).get(0);
+         
          //menu
          System.out.println("\nWhat would you like to do:");
          System.out.println("1. View their friends");
@@ -426,8 +429,6 @@ public static void FriendList(ProfNetwork esql){
          System.out.println("9. Exit");
          switch (readChoice()){
             case 1: 
-               //get id of selected friend
-               String id = current_friends.get(friend_id).get(0);
                //get their friends list
                current_friends = getFriendsList(id, esql);
                break;
@@ -438,6 +439,7 @@ public static void FriendList(ProfNetwork esql){
                current_friends = user_friends;
                break;
             case 4:
+               addFriend(id, esql);
                break;
             case 9: menu = false; break;
             default : System.out.println("Unrecognized choice!"); break;
