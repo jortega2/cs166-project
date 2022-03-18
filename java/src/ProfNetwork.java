@@ -561,8 +561,8 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
 
             //check if the user they want to add is in connectinons
 
-            for (int i = 0; i < connections.size(); i++){
-               if (connections.get(i).get(0) == connection_id){
+            for (int j = 0; j < connections.size(); j++){
+               if (connections.get(j).get(0) == connection_id){
                   try{
                      String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
                      esql.executeUpdate(query_1);
@@ -570,8 +570,8 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
                   }catch(Exception e){
                      System.err.println (e.getMessage ());
                   }
+                  return 1;
                }
-               return 1;
             }
             System.out.println("User does not have required connection level.");
 
