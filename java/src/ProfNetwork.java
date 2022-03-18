@@ -440,8 +440,6 @@ public static void FriendList(ProfNetwork esql){
                break;
             case 4:
                int result = addFriend(id, esql, user_friends);
-               System.out.println(result);
-               System.out.println("```");
                break;
             case 9: menu = false; break;
             default : System.out.println("Unrecognized choice!"); break;
@@ -560,11 +558,27 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
 
             List<List<String>> connections = esql.executeQueryAndReturnResult(query);
 
-            System.out.println("\n\n____________________________________+\n");
-            for (int j = 0; j < connections.size(); j++){
-               System.out.println(j + ": " + connections.get(j));
+            //check if the user they want to add is in connectinons
+
+            for (int i = 0; i < connections.size(); i++){
+               if (connections.get(i).get(0) == connection_id){
+                  try{
+                     String query_1 = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Accept" );
+                     esql.executeUpdate(query_1);
+                     break;
+                  }catch(Exception e){
+                     System.err.println (e.getMessage ());
+                  }
+               }
+               return 1;
             }
-            System.out.println("\n\n____________________________________+\n");
+            System.out.println("User does not have required connection level.");
+
+            // System.out.println("\n\n____________________________________+\n");
+            // for (int j = 0; j < connections.size(); j++){
+            //    System.out.println(j + ": " + connections.get(j));
+            // }
+            // System.out.println("\n\n____________________________________+\n");
 
          }catch(Exception e){
             System.err.println (e.getMessage ());
