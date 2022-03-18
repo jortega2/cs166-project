@@ -370,9 +370,9 @@ public class ProfNetwork {
          System.out.print("\tEnter user login: ");
          String login = in.readLine();
          System.out.print("\tEnter user password: ");
-         String password = in.readLine();
+         String password = in.readLine(); 
 
-         String query = String.format("SELECT * FROM USR WHERE userId = '''%s''' AND password = '%s'", login, password);
+         String query = String.format("SELECT * FROM USR WHERE userId = '%s' AND password = '%s'", login, password);
          int userNum = esql.executeQuery(query);
 	 if (userNum > 0){
       usr = login;
@@ -518,8 +518,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    
 
    try {
-      String friendlist = String.format("SELECT c.userId, u.name FROM CONNECTION_USR c, USR u WHERE c.connectionId = '%s' AND u.userId = c.userId"  +
-         " UNION SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", id, id);
+      String friendlist = String.format(" SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", id);
 
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
