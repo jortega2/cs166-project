@@ -565,7 +565,8 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
                String id = connections.get(j).get(0).toString();
                id = id.trim();
                connection_id = connection_id.trim();
-               if (id == connection_id){
+               boolean equal = id.equals(connection_id);
+               if (equal){
                   System.out.println("true");
                } else {
                   System.out.println("false");
