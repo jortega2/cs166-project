@@ -528,6 +528,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    }
 }
 public static void addFriend(String connection_id, ProfNetwork esql){
+      System.out.println("here\n\n");
       //check if new user
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
