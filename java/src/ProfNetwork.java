@@ -553,7 +553,7 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
       try{
          //not a new user, connection rules apply
             String query = String.format( "SELECT connectionId FROM CONNECTION_USR WHERE userId IN"
-            + " ( SELECT connectionId from CONNECTION_USR WHERE userId = '%s'"
+            + " ( SELECT connectionId from CONNECTION_USR WHERE userId = '%s')"
             + " UNION SELECT connectionId FROM CONNECTION_USR WHERE userId IN"
             + " ( SELECT connectionId from CONNECTION_USR WHERE userId IN "
             + " ( SELECT connectionId from CONNECTION_USR WHERE userId = '%s'))", usr, usr);
