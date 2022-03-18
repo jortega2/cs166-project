@@ -513,8 +513,8 @@ public static void viewMessage(ProfNetwork esql){
       int choice = 0;
       String query;
 
-      query = String.format("SELECT name, receiverId, contents, sendTime, status FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
-                + " UNION SELECT name, senderId, contents, sendtime, status FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
+      query = String.format("SELECT name, receiverId, contents, sendTime, status, deleteStatus, senderId FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
+                + " UNION SELECT name, senderId, contents, sendtime, status, deleteStatus, receiverId FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
       List<List<String>> messages = esql.executeQueryAndReturnResult(query);
 
        //menu
@@ -525,8 +525,6 @@ public static void viewMessage(ProfNetwork esql){
       while(choice != 99){
          // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
          //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
-         
-         
         
          System.out.println("99: Exit");
 
@@ -535,22 +533,15 @@ public static void viewMessage(ProfNetwork esql){
          if (choice == 99){
             break;
          }
-         System.out.println(messages.get(choice).get(2) + ": " + messages.get(choice).get(3) + ": " + messages.get(choice).get(4));
+         System.out.println(messages.get(choice).get(2) + "\n time " + messages.get(choice).get(3) + "\n " + messages.get(choice).get(4));
 
-         // System.out.println("1. View Messages");
-         // System.out.println("2. Send a message");
-         // System.out.println("9. Exit");
-         // switch (readChoice()){
-         //    case 1: 
-         //       for (int i = 0; i < messages.size(); i++){
-         //          System.out.println(i + ": " + messages.get(i).get(0));
-         //       }
-         //       break;
-         //    case 2:  
-         //       break;
-         //    case 9: menu = false; break;
-         //    default : System.out.println("Unrecognized choice!"); break;
-         // }//end switch
+         System.out.println("Delete message?\n1.Yes\nother:No");
+         int ans = Integer.parseInt(in.readLine());
+
+         // if (ans == 1){
+         //    query = String.format("UPDATE MESSAGES SET deleteStatus = '%d' WHERE senderId = '%s' AND receiverId = '%s'",3,messages.get(choice).get(,pswd);
+         //    esql.executeUpdate(query);
+         // }
       }
    } catch(Exception e){
       System.err.println (e.getMessage ());
