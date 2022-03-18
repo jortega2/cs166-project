@@ -510,21 +510,33 @@ public static void UpdateProfile(ProfNetwork esql){
 public static void viewMessage(ProfNetwork esql){
    try{
       boolean menu = true;
-
+      int choice = 0;
       String query;
+
+      query = String.format("SELECT name, receiverId, contents, sendTime, status FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
+                + " UNION SELECT name, senderId, contents, sendtime, status FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
+      List<List<String>> messages = esql.executeQueryAndReturnResult(query);
+
+       //menu
+      for (int i = 0; i < messages.size(); i++){
+         System.out.println(i + ": " + messages.get(i).get(0));
+      }
       
-      while(menu){
+      while(choice != 99){
          // query = String.format("SELECT receiverId, contents, sendTime, status FROM MESSAGE WHERE senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'"
          //       + " UNION SELECT senderId, contents, sendTime, status FROM MESSAGE WHERE receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d'", usr, 0, 2, usr, 0, 1);
-         query = String.format("SELECT name, receiverId FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
-                + " UNION SELECT name, senderId FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
-         List<List<String>> messages = esql.executeQueryAndReturnResult(query);
          
-         //menu
-         for (int i = 0; i < messages.size(); i++){
-            System.out.println(i + ": " + messages.get(i).get(0));
+         
+        
+         System.out.println("99: Exit");
+
+         System.out.println("\nSelect inbox: ");
+         choice = Integer.parseInt(in.readLine());
+         if (choice == 99){
+            break;
          }
-         // System.out.println("\nWhat would you like to do:");
+         System.out.println(messages.get(choice).get(2) + ": " + messages.get(choice).get(3) + ": " + messages.get(choice).get(4));
+
          // System.out.println("1. View Messages");
          // System.out.println("2. Send a message");
          // System.out.println("9. Exit");
