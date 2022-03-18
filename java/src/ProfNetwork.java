@@ -229,10 +229,7 @@ public class ProfNetwork {
     //global vars
     static String usr = "";
     static String pswd = "";
-<<<<<<< HEAD
-=======
     public static List<List<String>> newUserList = new ArrayList<List<String>>();
->>>>>>> dev
     public static void main (String[] args) {
       if (args.length != 3) {
          System.err.println (
@@ -276,11 +273,7 @@ public class ProfNetwork {
                 System.out.println("MAIN MENU");
                 System.out.println("---------");
                 System.out.println("Welcome " + usr);
-<<<<<<< HEAD
-                System.out.println("1. Goto Friend List");
-=======
                 System.out.println("1. Friend List");
->>>>>>> dev
                 System.out.println("2. Update Profile");
                 System.out.println("3. Messages");
                 System.out.println("4. Search people");
@@ -355,10 +348,6 @@ public class ProfNetwork {
 
 	 //Creating empty contact\block lists for a user
 	 String query = String.format("INSERT INTO USR (userId, password, email) VALUES ('%s','%s','%s')", login, password, email);
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
          esql.executeUpdate(query);
          System.out.println ("User successfully created!");
          List<String> new_user = new ArrayList<String>();
@@ -551,6 +540,7 @@ public static void addFriend(String connection_id, ProfNetwork esql){
             reqs_left--;
             newUserList.get(i).set(1, String.valueOf(reqs_left));
             System.out.println(newUserList.get(i));
+            //
          } else {
             //not a new user, connection rules apply
             
