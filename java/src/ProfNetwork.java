@@ -518,7 +518,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    
 
    try {
-      String friendlist = String.format(" SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId", id);
+      String friendlist = String.format(" SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId AND c.status = '%s'", id, "Accept");
 
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
