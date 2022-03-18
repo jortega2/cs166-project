@@ -558,7 +558,7 @@ public static void sendMessage(ProfNetwork esql, String id){
    try{
       
       if (id.equals("")){
-         System.out.println("Enter name or userId of user you'd like to send a message to:");
+         System.out.println("Enter userId of user you'd like to send a message to:");
          id = in.readLine().trim();
       } 
       System.out.println("Enter the message content:");
