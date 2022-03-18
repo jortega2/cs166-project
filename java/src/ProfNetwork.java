@@ -552,21 +552,13 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
       }
       try{
          //not a new user, connection rules apply
-            // String query = String.format( "SELECT DISTINCT C1.connectionId FROM CONNECTION_USR C1 WHERE C1.userId = '%s'"
-            // + " UNION ALL (SELECT DISTINCT C2.connectionId FROM CONNECTION_USR C2 WHERE C2.userId = C1.connnectionId)",usr);
-            // + " UNION SELECT DISTINCT C3 connectionId FROM CONNECTION_USR C3 WHERE C3.userId = C2.connectionId"
-            // + " UNION SELECT DISTINCT C1.userId FROM CONNECTION_USR C1 WHERE C1.connectionId = '%s'"
-            // + " UNION SELECT DISTINCT C2.userId FROM CONNECTION_USR C2 WHERE C2.connectionId = C1.userId"
-            // + " UNION SELECT DISTINCT C3.userId FROM CONNECTION_USR C3 WHERE C3.connectionId = C2.userId",usr,usr);
+            String query = String.format( "SELECT connectionId FROM CONNECTION_USR WHERE userId IN"
+            + " ( SELECT connectionId from CONNECTION_USR WHERE userId = '%s'"
+            + " UNION SELECCT connectionId FROM CONNECTION_USR WHERE userId IN"
+            + " ( SELECT connectionId from CONNECTION_USR WHERE userId IN "
+            + " ( SELECT connectionId from CONNECTION_USR WHERE userId = '%s'))", usr, usr);
 
-            // List<List<String>> connections = esql.executeQueryAndReturnResult(query);
-
-            List<List<String>> connections = user_friends;
-
-            for (int i = 0; i < user_friends.size(); i++){
-               System.out.println(user_friends.get(i));
-               connections.addAll(getFriendsList(user_friends.get(i).get(0), esql));
-            }
+            List<List<String>> connections = esql.executeQueryAndReturnResult(query);
 
             System.out.println("\n\n____________________________________+\n");
             for (int j = 0; j < connections.size(); j++){
