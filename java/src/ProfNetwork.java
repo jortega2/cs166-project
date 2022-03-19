@@ -359,6 +359,7 @@ public class ProfNetwork {
          new_user.add(login);
          new_user.add("5");
          newUserList.add(new_user);
+         System.out.println(newUserList);
 
       }catch(Exception e){
          System.err.println (e.getMessage ());
