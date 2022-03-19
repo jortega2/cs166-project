@@ -526,12 +526,12 @@ public static void viewMessage(ProfNetwork esql){
          List<List<String>> messages = esql.executeQueryAndReturnResult(query);
          
          //display inboxes
+         System.out.println("Row/msg ID/Name");
          for (int i = 0; i < messages.size(); i++){
-            System.out.println(messages.get(i).get(7) + ": " + messages.get(i).get(0));
+            System.out.println(i + ": " + messages.get(i).get(7) + ": " + messages.get(i).get(0));
          }
 
          System.out.println("99999: Exit");
-
          System.out.println("\nSelect inbox: ");
          choice = Integer.parseInt(in.readLine());
          if (choice == 99999){
