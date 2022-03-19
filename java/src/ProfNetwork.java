@@ -401,7 +401,7 @@ public static void FriendList(ProfNetwork esql, String connection_id){
       while(menu){
          //display friends list
          System.out.println("\n\n____________________________________\n");
-         System.out.println("Name: ");
+         System.out.println("Id/Name");
          for (int i = 0; i < current_friends.size(); i++){
             System.out.println(i + ": " + current_friends.get(i).get(1));
          }
@@ -516,8 +516,8 @@ public static void viewMessage(ProfNetwork esql){
       int choice = 0;
       String query, querys;
 
-      query = String.format("SELECT name, receiverId, contents, sendTime, status, deleteStatus, senderId FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
-                + " UNION SELECT name, senderId, contents, sendtime, status, deleteStatus, receiverId FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
+      query = String.format("SELECT name, receiverId, contents, sendTime, status, deleteStatus, senderId, msgId FROM MESSAGE, USR WHERE receiverId = userId AND senderId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')"
+                + " UNION SELECT name, senderId, contents, sendtime, status, deleteStatus, receiverId, msgId FROM MESSAGE, USR WHERE senderId = userId AND receiverId = '%s' AND (deleteStatus = '%d' OR deleteStatus = '%d')", usr, 0, 2, usr, 0, 1);
       
 
       
@@ -527,7 +527,7 @@ public static void viewMessage(ProfNetwork esql){
          
          //display inboxes
          for (int i = 0; i < messages.size(); i++){
-            System.out.println(i + ": " + messages.get(i).get(0));
+            System.out.println(messages.get(i).get(7) + ": " + messages.get(i).get(0));
          }
 
          System.out.println("999: Exit");
