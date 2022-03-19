@@ -529,11 +529,11 @@ public static void viewMessage(ProfNetwork esql){
             System.out.println(i + ": " + messages.get(i).get(0));
          }
 
-         System.out.println("99: Exit");
+         System.out.println("999: Exit");
 
          System.out.println("\nSelect inbox: ");
          choice = Integer.parseInt(in.readLine());
-         if (choice == 99){
+         if (choice == 999){
             break;
          }
          //display message content
