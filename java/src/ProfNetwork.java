@@ -645,7 +645,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
       String new_user_check = String.format ("SELECT connectionId FROM CONNECTION_USR WHERE userId = '%s'", usr);
       try{
          int count = esql.executeQuery(new_user_check);
-         System.out.println(count);
+         
          if (count == 0){
             List<String> new_user = new ArrayList<String>();
             new_user.add(usr);
@@ -655,7 +655,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
-      System.out.println(newUserList);
+      
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
          if (newUserList.get(i).get(0).equals(usr)){
@@ -671,7 +671,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
                newUserList.remove(i);
             } else {
                newUserList.get(i).set(1, String.valueOf(reqs_left));
-               System.out.println(newUserList.get(i));
+               
             }
             return 1;
          }
