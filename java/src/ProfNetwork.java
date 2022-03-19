@@ -696,7 +696,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
    }  
 public static void checkConnections(ProfNetwork esql){
       try {
-         String query = String.format("SELECT c.userId, u.name, c.status FROM CONNECTION_USR c, USR u WHERE u.userId = c.connectionId AND c.connectionId = '%s' AND c.status = '%s'", usr, "Request");
+         String query = String.format("SELECT c.userId, u.name, c.status FROM CONNECTION_USR c, USR u WHERE u.userId = c.userId AND c.connectionId = '%s' AND c.status = '%s'", usr, "Request");
          List<List<String>> connections = esql.executeQueryAndReturnResult(query);
          int user_id;
 
