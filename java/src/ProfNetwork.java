@@ -355,12 +355,6 @@ public class ProfNetwork {
          System.out.println ("User successfully created!");
          List<String> new_user = new ArrayList<String>();
 
-         //add new user to list, set # of free connections to 5
-         new_user.add(login);
-         new_user.add("5");
-         newUserList.add(new_user);
-         System.out.println(newUserList);
-
       }catch(Exception e){
          System.err.println (e.getMessage ());
       }
@@ -412,8 +406,13 @@ public static void FriendList(ProfNetwork esql, String connection_id){
          }
          System.out.println("\n\n____________________________________\n");
 
-         System.out.println("Enter row number of desired friend:");
+         System.out.println("Enter row number of desired friend or enter 999 to exit:");
+
          friend_id = readChoice();
+         if (friend_id == 999){
+            menu = false;
+            break;
+         }
          //display name and date of birth (profile)
          query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", current_friends.get(friend_id).get(0));
          System.out.println('\n');
@@ -588,8 +587,12 @@ public static void Search(ProfNetwork esql){
          }
          System.out.println("\n\n____________________________________\n");
 
-         System.out.println("Enter row number of user:");
+         System.out.println("Enter row number of user or enter 999 to exit:");
          num_id = readChoice();
+         if (num_id == 999){
+            menu = false;
+            break;
+         }
          //display name and date of birth (profile)
          query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", users.get(num_id).get(0));
          System.out.println('\n');
