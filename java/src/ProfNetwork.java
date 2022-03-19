@@ -425,7 +425,7 @@ public static void FriendList(ProfNetwork esql, String connection_id){
          System.out.println("\nWhat would you like to do:");
          System.out.println("1. View their friends");
          System.out.println("2. Send a message");
-         System.out.println("3. Return to your friends");
+         System.out.println("3. Return");
          //option to add friend if usr is not already added
          if (!user_friends.contains(current_friends.get(friend_id))){
             System.out.println("4. Add friend");
@@ -590,7 +590,7 @@ public static void Search(ProfNetwork esql){
       while(menu){
          System.out.println("\n\n____________________________________\n");
          for (int i = 0; i < users.size(); i++){
-            System.out.println(i + ": " + users.get(i).get(0));
+            System.out.println(i + ": " + users.get(i).get(1));
          }
          System.out.println("\n\n____________________________________\n");
 
@@ -647,7 +647,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
       //check if new user
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
-         if (newUserList.get(i).get(0) == usr){
+         if (newUserList.get(i).get(0).equals(usr)){
             try{
                String query = String.format("INSERT INTO CONNECTION_USR (userId, connectionId, status) VALUES ('%s','%s','%s')", usr, connection_id, "Request" );
                esql.executeUpdate(query);
