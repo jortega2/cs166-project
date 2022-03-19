@@ -724,7 +724,7 @@ public static void checkConnections(ProfNetwork esql){
             }
             System.out.println("\n\n____________________________________\n");
    
-            System.out.println("Enter row number of request:");
+            System.out.println("Enter row number of request or type 999 to exit:");
             user_id = readChoice();
       
             //get id of friend
