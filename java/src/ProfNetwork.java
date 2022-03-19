@@ -425,11 +425,12 @@ public static void FriendList(ProfNetwork esql, String connection_id){
          System.out.println("\nWhat would you like to do:");
          System.out.println("1. View their friends");
          System.out.println("2. Send a message");
-         System.out.println("3. Return");
+         System.out.println("3. Return to list");
          //option to add friend if usr is not already added
          if (!user_friends.contains(current_friends.get(friend_id))){
             System.out.println("4. Add friend");
          }
+         System.out.println("........");
          System.out.println("9. Exit");
          switch (readChoice()){
             case 1: 
@@ -645,6 +646,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
 }
 public static int addFriend(String connection_id, ProfNetwork esql){
       //check if new user
+      System.out.println(newUserList);
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
          if (newUserList.get(i).get(0).equals(usr)){
