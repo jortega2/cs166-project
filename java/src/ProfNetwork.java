@@ -278,7 +278,7 @@ public class ProfNetwork {
                 System.out.println("2. Update Profile");
                 System.out.println("3. View Messages");
                 System.out.println("4. Search people");
-                System.out.println("5. Send a message");
+                System.out.println("5. Check connection requests");
                 System.out.println(".........................");
                 System.out.println("9. Log out");
                 switch (readChoice()){
@@ -286,7 +286,7 @@ public class ProfNetwork {
                    case 2: UpdateProfile(esql); break;
                    case 3: viewMessage(esql); break;
                    case 4: Search(esql); break;
-                   case 5: sendMessage(esql, ""); break;
+                   case 5: checkConnections(esql); break;
                    case 9: usermenu = false; break;
                    default : System.out.println("Unrecognized choice!"); break;
                 }
@@ -456,7 +456,6 @@ public static void FriendList(ProfNetwork esql, String connection_id){
       System.err.println (e.getMessage ());
    }
 }
-
 public static void UpdateProfile(ProfNetwork esql){
    try{
       boolean menu = true;
@@ -511,7 +510,6 @@ public static void UpdateProfile(ProfNetwork esql){
       System.err.println (e.getMessage ());
    }
 }
-
 public static void viewMessage(ProfNetwork esql){
    try{
      
@@ -557,14 +555,9 @@ public static void viewMessage(ProfNetwork esql){
       System.err.println (e.getMessage ());
    }
 }
-
 public static void sendMessage(ProfNetwork esql, String id){
    try{
       
-      if (id.equals("")){
-         System.out.println("Enter userId of user you'd like to send a message to:");
-         id = in.readLine().trim();
-      } 
       System.out.println("Enter the message content:");
       String input = in.readLine();
 
@@ -575,7 +568,6 @@ public static void sendMessage(ProfNetwork esql, String id){
       System.err.println (e.getMessage ());
    }
 }
-
 public static void Search(ProfNetwork esql){
    try{
       boolean menu = true;
@@ -632,8 +624,6 @@ public static void Search(ProfNetwork esql){
    }
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
-   
-
    try {
       String friendlist = String.format(" SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId AND c.status = '%s'", id, "Accept");
 
@@ -646,6 +636,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    }
 }
 public static int addFriend(String connection_id, ProfNetwork esql){
+
       //check if new user
       System.out.println(newUserList);
       for (int i = 0; i < newUserList.size(); i++){
@@ -702,5 +693,47 @@ public static int addFriend(String connection_id, ProfNetwork esql){
             System.err.println (e.getMessage ());
          }
       return 0;
-}
+   }  
+public static void checkConnections(ProfNetwork esql){
+      try {
+         String query = String.format("SELECT userId, name, status FROM CONNECTION_USR WHERE connectionId = '%s' AND status = '%s'", usr, "Request");
+         List<List<String>> connections = esql.executeQueryAndReturnResult(query);
+         int user_id;
+
+            //display connection requests
+            System.out.println("\n\n____________________________________\n");
+            for (int i = 0; i < connections.size(); i++){
+               System.out.println(i + ": " + connections.get(i).get(1));
+            }
+            System.out.println("\n\n____________________________________\n");
+   
+            System.out.println("Enter row number of request:");
+            user_id = readChoice();
+      
+            //get id of friend
+            String id = connections.get(user_id).get(0);
+            
+            //menu
+            System.out.println("\nWhat would you like to do:");
+            System.out.println("1. Accept request");
+            System.out.println("2. Reject request");
+            System.out.println("........");
+            System.out.println("9. Exit");
+            switch (readChoice()){
+               case 1: 
+                  String query_1 = String.format("UPDATE CONNECTION_USR SET status = '%s' WHERE userId = '%s' AND connectionId = '%s'", "Accept",id,usr);
+                  esql.executeUpdate(query_1);
+                  break;
+               case 2: 
+                  String query_2 = String.format("UPDATE CONNECTION_USR SET status = '%s' WHERE userId = '%s' AND connectionId = '%s'", "Reject",id,usr);
+                  esql.executeUpdate(query_2);
+                  break;
+               case 9: break;
+               default : System.out.println("Unrecognized choice!"); break;
+            }//end switch
+
+      } catch(Exception e){
+         System.err.println (e.getMessage ());
+      }
+   }
 }//end ProfNetwork.
