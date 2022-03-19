@@ -282,7 +282,7 @@ public class ProfNetwork {
                 System.out.println(".........................");
                 System.out.println("9. Log out");
                 switch (readChoice()){
-                   case 1: FriendList(esql); break;
+                   case 1: FriendList(esql, ""); break;
                    case 2: UpdateProfile(esql); break;
                    case 3: viewMessage(esql); break;
                    case 4: Search(esql); break;
@@ -389,9 +389,10 @@ public class ProfNetwork {
       }
    }//end
 // Rest of the functions definition go in here
-public static void FriendList(ProfNetwork esql){
+public static void FriendList(ProfNetwork esql, String connection_id){
    try{
       boolean menu = true;
+
       int friend_id = 0;
       List<List<String>> user_friends, current_friends;
       String query;
@@ -441,7 +442,7 @@ public static void FriendList(ProfNetwork esql){
                current_friends = user_friends;
                break;
             case 4:
-               int result = addFriend(id, esql, user_friends);
+               int result = addFriend(id, esql);
                user_friends = getFriendsList(usr, esql);
                break;
             case 9: menu = false; break;
@@ -573,7 +574,59 @@ public static void sendMessage(ProfNetwork esql, String id){
 }
 
 public static void Search(ProfNetwork esql){
+   try{
+      boolean menu = true;
+      int num_id = 0;
+      String input;
+      
+      System.out.println("Enter a name to search for: ");
+      input = in.readLine();
 
+      String query;
+      String friendlist = String.format(" SELECT userId, name, dateofbirth from USR WHERE name = '%s'", input);
+      List<List<String>> users = esql.executeQueryAndReturnResult(friendlist);
+
+      while(menu){
+         System.out.println("\n\n____________________________________\n");
+         for (int i = 0; i < users.size(); i++){
+            System.out.println(i + ": " + users.get(i).get(0));
+         }
+         System.out.println("\n\n____________________________________\n");
+
+         System.out.println("Enter row number of user:");
+         num_id = readChoice();
+         //display name and date of birth (profile)
+         query = String.format("SELECT dateofbirth, name FROM USR WHERE userId = '%s'", users.get(num_id).get(0));
+         System.out.println('\n');
+         esql.executeQueryAndPrintResult(query);
+
+         //get id of friend
+         String user_id = users.get(num_id).get(0);
+         
+         //menu
+         System.out.println("\nWhat would you like to do:");
+         System.out.println("1. View their friends");
+         System.out.println("2. Send a message");
+         System.out.println("3. Add friend");
+         System.out.println("9. Exit");
+         switch (readChoice()){
+            case 1: 
+               //get their friends list
+               
+               break;
+            case 2: 
+               sendMessage(esql, user_id);
+               break;
+            case 3:
+               int result = addFriend(user_id, esql);
+               break;
+            case 9: menu = false; break;
+            default : System.out.println("Unrecognized choice!"); break;
+         }//end switch
+      }
+   } catch(Exception e){
+      System.err.println (e.getMessage ());
+   }
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    
@@ -589,7 +642,7 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
       return null;
    }
 }
-public static int addFriend(String connection_id, ProfNetwork esql, List<List<String>> user_friends){
+public static int addFriend(String connection_id, ProfNetwork esql){
       //check if new user
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
@@ -640,12 +693,6 @@ public static int addFriend(String connection_id, ProfNetwork esql, List<List<St
                }
             }
             System.out.println("User does not have required connection level.");
-
-            // System.out.println("\n\n____________________________________+\n");
-            // for (int j = 0; j < connections.size(); j++){
-            //    System.out.println(j + ": " + connections.get(j));
-            // }
-            // System.out.println("\n\n____________________________________+\n");
 
          }catch(Exception e){
             System.err.println (e.getMessage ());
