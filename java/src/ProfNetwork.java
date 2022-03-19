@@ -536,7 +536,7 @@ public static void viewMessage(ProfNetwork esql){
             break;
          }
          //display message content
-         System.out.println(messages.get(choice).get(2).trim() + "\ntime " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
+         System.out.println("message: "+ messages.get(choice).get(2).trim() + "\ntime " + messages.get(choice).get(3) + "\nstatus:" + messages.get(choice).get(4));
          
          //option to delete
          System.out.println("Delete message?\n1.Yes\nother:No");
