@@ -400,7 +400,7 @@ public static void FriendList(ProfNetwork esql, String connection_id){
 
       while(menu){
          //display friends list
-         System.out.println("\n\n____________________________________\n");\
+         System.out.println("\n\n____________________________________\n");
          System.out.println("Name: ");
          for (int i = 0; i < current_friends.size(); i++){
             System.out.println(i + ": " + current_friends.get(i).get(1));
