@@ -638,6 +638,18 @@ public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
 public static int addFriend(String connection_id, ProfNetwork esql){
 
       //check if new user
+      String new_user_check = String.format ("SELECT connectionId FROM CONNECTION_USR WHERE userId = '%s'", usr);
+      try{
+         int count = esql.executeQuery(new_user_check);
+         if (count == 0){
+            List<String> new_user = new ArrayList<String>();
+            new_user.add(usr);
+            new_user.add("5");
+            newUserList.add(new_user);
+         }
+      }catch(Exception e){
+         System.err.println (e.getMessage ());
+      }
       System.out.println(newUserList);
       for (int i = 0; i < newUserList.size(); i++){
          //new user found
