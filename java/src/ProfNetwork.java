@@ -402,7 +402,8 @@ public static void FriendList(ProfNetwork esql, String connection_id){
          //display friends list
          System.out.println("\n\n____________________________________\n");
          for (int i = 0; i < current_friends.size(); i++){
-            System.out.println(i + ": " + current_friends.get(i).get(1));
+            System.out.println("Name / Status");
+            System.out.println(i + ": " + current_friends.get(i).get(1) + current_friends.get(i).get(2));
          }
          System.out.println("\n\n____________________________________\n");
 
@@ -628,7 +629,7 @@ public static void Search(ProfNetwork esql){
 }
 public static List<List<String>> getFriendsList(String id, ProfNetwork esql){
    try {
-      String friendlist = String.format(" SELECT c.connectionId, u.name from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId AND c.status = '%s'", id, "Accept");
+      String friendlist = String.format(" SELECT c.connectionId, u.name, c.status from CONNECTION_USR c, USR u WHERE c.userId = '%s' AND u.userId = c.connectionId AND c.status = '%s'", id, "Accept");
 
       List<List<String>> friends = esql.executeQueryAndReturnResult(friendlist);
 
