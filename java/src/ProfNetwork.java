@@ -641,6 +641,7 @@ public static int addFriend(String connection_id, ProfNetwork esql){
       String new_user_check = String.format ("SELECT connectionId FROM CONNECTION_USR WHERE userId = '%s'", usr);
       try{
          int count = esql.executeQuery(new_user_check);
+         System.out.println(count);
          if (count == 0){
             List<String> new_user = new ArrayList<String>();
             new_user.add(usr);
