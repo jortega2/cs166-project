@@ -396,12 +396,13 @@ public static void FriendList(ProfNetwork esql, String connection_id){
       int friend_id = 0;
       List<List<String>> user_friends, current_friends;
       String query;
-
-      user_friends = getFriendsList(usr, esql);
+      if (connection_id == ""){
+         user_friends = getFriendsList(usr, esql);
+      } else {
+         user_friends = getFriendsList(connection_id, esql);
+      }
       current_friends = user_friends;
-      //display friends list
 
-      
       while(menu){
          //display friends list
          System.out.println("\n\n____________________________________\n");
@@ -583,8 +584,8 @@ public static void Search(ProfNetwork esql){
       input = in.readLine();
 
       String query;
-      String friendlist = String.format(" SELECT userId, name, dateofbirth from USR WHERE name = '%s'", input);
-      List<List<String>> users = esql.executeQueryAndReturnResult(friendlist);
+      String user_list = String.format(" SELECT userId, name, dateofbirth from USR WHERE name = '%s'", input);
+      List<List<String>> users = esql.executeQueryAndReturnResult(user_list);
 
       while(menu){
          System.out.println("\n\n____________________________________\n");
@@ -612,7 +613,7 @@ public static void Search(ProfNetwork esql){
          switch (readChoice()){
             case 1: 
                //get their friends list
-               
+               FriendList(esql, user_id);
                break;
             case 2: 
                sendMessage(esql, user_id);
